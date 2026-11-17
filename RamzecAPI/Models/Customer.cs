@@ -1,17 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace RamzecAPI.Models;
-
-public partial class Customer
+namespace RamzecAPI.Models
 {
-    public string CustomerName { get; set; } = null!;
+    [Table("customers")]
+    public class Customer
+    {
+        [Key]
+        public int Id { get; set; }
 
-    public string CustomerAdress { get; set; } = null!;
+        [Required]
+        [MaxLength(200)]
+        public string FullName { get; set; } = string.Empty;
 
-    public long CustomerPhone { get; set; }
+        [Phone]
+        [MaxLength(20)]
+        public string Phone { get; set; } = string.Empty;
 
-    public int CustomerCode { get; set; }
+        [EmailAddress]
+        [MaxLength(100)]
+        public string? Email { get; set; }
 
-    public virtual ICollection<Deal> Deals { get; set; } = new List<Deal>();
+        [MaxLength(250)]
+        public string? Address { get; set; }
+    }
 }

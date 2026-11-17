@@ -1,19 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace RamzecAPI.Models;
-
-public partial class Furniture
+namespace RamzecAPI.Models
 {
-    public string FurnitureCharacteristics { get; set; } = null!;
+    [Table("furniture_models")]
+    public class Furniture
+    {
+        [Key]
+        public int Id { get; set; }
 
-    public decimal FurnitureCost { get; set; }
+        [Required]
+        [MaxLength(150)]
+        public string Name { get; set; } = string.Empty;
 
-    public string FurnitureName { get; set; } = null!;
+        [MaxLength(100)]
+        public string Category { get; set; } = string.Empty; // Например: Диван, Стол, Шкаф
 
-    public string FurnitureModel { get; set; } = null!;
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal Price { get; set; }
 
-    public virtual ICollection<Sale> SaleFurnitureModelNavigations { get; set; } = new List<Sale>();
+        public string? Material { get; set; }
 
-    public virtual ICollection<Sale> SaleFurnitureNameNavigations { get; set; } = new List<Sale>();
+        public int StockQuantity { get; set; }
+    }
 }
